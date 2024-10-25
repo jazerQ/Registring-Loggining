@@ -20,7 +20,7 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
-
+            BtnSignIn.IsEnabled = false;
         }
 
         private void PBoxPassword_GotFocus(object sender, RoutedEventArgs e)
@@ -35,25 +35,30 @@ namespace WpfApp1
             {
                 labelForPass.Visibility = Visibility.Visible;
                 PBoxPassword.Foreground = Brushes.DarkGray;
+                
+
             }
+            
+            
         }
 
         private void TBoxUsername_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (TBoxUsername.Foreground == Brushes.DarkGray)
+            if (TBoxUsername.Text == "Username")
             {
                 TBoxUsername.Text = "";
                 TBoxUsername.Foreground = Brushes.Black;
             }
         }
 
-            private void TBoxUsername_LostFocus(object sender, RoutedEventArgs e)
+        private void TBoxUsername_LostFocus(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(TBoxUsername.Text))
             {
                 TBoxUsername.Text = "Username";
                 TBoxUsername.Foreground = Brushes.DarkGray;
             }
+           
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -62,6 +67,7 @@ namespace WpfApp1
             TBoxUsername_LostFocus(sender, e);
             PBoxPassword_LostFocus(sender, e);
             TextBox_LostFocus(sender, e);
+            BtnIsEnabling();
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -80,6 +86,45 @@ namespace WpfApp1
                 TBoxEmail.Text = "Email";
                 TBoxEmail.Foreground = Brushes.DarkGray;
             }
+            
+        }
+        private void BtnIsEnabling()
+        {
+            if((!string.IsNullOrEmpty(TBoxEmail.Text) && TBoxEmail.Text != "Email") && (!string.IsNullOrEmpty(TBoxUsername.Text) && (TBoxUsername.Text != "Username")) && (!string.IsNullOrEmpty(PBoxPassword.Password) && PBoxPassword.Password != "Password"))
+            {
+                BtnSignIn.IsEnabled = true;
+                return;
+            }
+            BtnSignIn.IsEnabled = false;
+            
+        }
+
+        private async void BtnSignIn_Click(object sender, RoutedEventArgs e)
+        {
+            BtnIsEnabling();
+            bool flagUsername = false;
+            bool flagEmail = false;
+            try
+            {
+                flagUsername = await (DataAccess.CheckValueExists("Username", TBoxUsername.Text));
+                flagEmail = await (DataAccess.CheckValueExists("Email", TBoxEmail.Text));
+
+                if (flagUsername && flagEmail)
+                {
+                    DataAccess.InputParams(TBoxUsername.Text, PBoxPassword.Password, TBoxEmail.Text);
+                    MessageBox.Show("successfully!");
+                    Launcher launcher = new Launcher();
+                    launcher.Show();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("such a user already exists!");
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }  
         }
     }
 }

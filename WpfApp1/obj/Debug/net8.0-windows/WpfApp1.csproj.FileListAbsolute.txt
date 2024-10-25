@@ -44,3 +44,6 @@ C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\refint\WpfAp
 C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\WpfApp1.pdb
 C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\WpfApp1.genruntimeconfig.cache
 C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\ref\WpfApp1.dll
+C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\WpfApp1.sourcelink.json
+C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\Launcher.g.cs
+C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\Launcher.baml
