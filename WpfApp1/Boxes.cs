@@ -9,27 +9,86 @@ using System.Windows.Controls;
 
 namespace WpfApp1
 {
-    static class Boxes
+    class TextBoxFocusElements
     {
-        static public void TBoxUsername_GotFocus(object sender, RoutedEventArgs e)
+        public TextBox TBox = null!;
+        public string NotFocusValue { get; set; } = null!;
+        public Brush InputColor { get; set; } = null!;
+        public Brush NotFocusColor { get; set; } = null!;
+        public TextBoxFocusElements(TextBox TBox, Brush InputColor, Brush NotFocusColor, string NotFocusValue = "")
         {
-            TextBox TBox = (TextBox)sender;
-            if (TBox.Text == "Username")
+            this.TBox = TBox;
+            this.InputColor = InputColor;
+            this.NotFocusColor = NotFocusColor;
+            this.NotFocusValue = NotFocusValue;
+        }
+    }
+    class TBoxesFocusCheck
+    {
+        private TextBoxFocusElements FocusElements;
+        public TBoxesFocusCheck(TextBox TBox, Brush InputColor, Brush NotFocusColor, string NotFocusValue = "")
+        {
+            FocusElements = new TextBoxFocusElements(TBox, InputColor, NotFocusColor, NotFocusValue);
+        }
+    
+        public void TBox_GotFocus()
+        {
+            
+            if (FocusElements.TBox.Text == FocusElements.NotFocusValue)
             {
-                TBox.Text = "";
-                TBox.Foreground = Brushes.Black;
+                FocusElements.TBox.Text = "";
+                FocusElements.TBox.Foreground = FocusElements.InputColor;
             }
         }
 
-        static public void TBoxUsername_LostFocus(object sender, RoutedEventArgs e)
+        public void TBox_LostFocus()
         {
-            TextBox TBox = (TextBox)sender;
-            if (string.IsNullOrEmpty(TBox.Text))
+            if (string.IsNullOrEmpty(FocusElements.TBox.Text))
             {
-                TBox.Text = "Username";
-                TBox.Foreground = Brushes.DarkGray;
+                FocusElements.TBox.Text = FocusElements.NotFocusValue;
+                FocusElements.TBox.Foreground = FocusElements.NotFocusColor;
             }
 
+        }
+        
+    }
+    class PBoxFocusElements
+    {
+        public PasswordBox PBox = null!;
+        public Label NotFocusValue { get; set; } = null!;
+        public Brush InputColor { get; set; } = null!;
+        public Brush NotFocusColor { get; set; } = null!;
+        public PBoxFocusElements(PasswordBox PBox, Brush InputColor, Brush NotFocusColor, Label NotFocusValue)
+        {
+            this.PBox = PBox;
+            this.InputColor = InputColor;
+            this.NotFocusColor = NotFocusColor;
+            this.NotFocusValue = NotFocusValue;
+        }
+    }
+    class PBoxesFocusCheck
+    {
+        private PBoxFocusElements FocusElements;
+        public PBoxesFocusCheck(PasswordBox PBox, Brush InputColor, Brush NotFocusColor, Label NotFocusLabel)
+        {
+            FocusElements = new PBoxFocusElements(PBox, InputColor, NotFocusColor, NotFocusLabel);
+        }
+        public void PBox_GotFocus()
+        {
+            if (FocusElements.PBox == null)
+            {
+                return;
+            }
+            FocusElements.NotFocusValue.Visibility = Visibility.Hidden;
+            FocusElements.PBox.Foreground = FocusElements.InputColor;
+        }
+        public void PBox_LostFocus()
+        {
+            if (string.IsNullOrEmpty(FocusElements.PBox.Password))
+            {
+                FocusElements.NotFocusValue.Visibility = Visibility.Visible;
+                FocusElements.PBox.Foreground = FocusElements.NotFocusColor;
+            }
         }
     }
 }

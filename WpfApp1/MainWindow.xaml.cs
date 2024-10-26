@@ -17,80 +17,63 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
+        private PBoxesFocusCheck PassBox;
+        private TBoxesFocusCheck TxtBox;
+        private TBoxesFocusCheck EmailBox;
         public MainWindow()
         {
             InitializeComponent();
             BtnSignIn.IsEnabled = false;
+            PassBox = new PBoxesFocusCheck(PBoxPassword, Brushes.Black, Brushes.DarkGray, labelForPass);
+            TxtBox = new TBoxesFocusCheck(TBoxUsername, Brushes.Black, Brushes.DarkGray, "Username");
+            EmailBox = new TBoxesFocusCheck(TBoxEmail, Brushes.Black, Brushes.DarkGray, "Email");
         }
 
         private void PBoxPassword_GotFocus(object sender, RoutedEventArgs e)
         {
-            labelForPass.Visibility = Visibility.Hidden;
-            PBoxPassword.Foreground = Brushes.Black;
+            PassBox.PBox_GotFocus();
         }
 
         private void PBoxPassword_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(PBoxPassword.Password))
-            {
-                labelForPass.Visibility = Visibility.Visible;
-                PBoxPassword.Foreground = Brushes.DarkGray;
-                
-
-            }
+            PassBox.PBox_LostFocus();
             
             
         }
 
         private void TBoxUsername_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (TBoxUsername.Text == "Username")
-            {
-                TBoxUsername.Text = "";
-                TBoxUsername.Foreground = Brushes.Black;
-            }
+            TxtBox.TBox_GotFocus();
         }
 
         private void TBoxUsername_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(TBoxUsername.Text))
-            {
-                TBoxUsername.Text = "Username";
-                TBoxUsername.Foreground = Brushes.DarkGray;
-            }
+            TxtBox.TBox_LostFocus();
            
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Keyboard.ClearFocus();
-            TBoxUsername_LostFocus(sender, e);
-            PBoxPassword_LostFocus(sender, e);
-            TextBox_LostFocus(sender, e);
+            
+            WindowMouse.Down(PassBox, TxtBox, EmailBox);
             BtnIsEnabling();
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (TBoxEmail.Foreground == Brushes.DarkGray)
-            {
-                TBoxEmail.Text = "";
-                TBoxEmail.Foreground = Brushes.Black;
-            }
+            EmailBox.TBox_GotFocus();
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(TBoxEmail.Text))
-            {
-                TBoxEmail.Text = "Email";
-                TBoxEmail.Foreground = Brushes.DarkGray;
-            }
+            EmailBox.TBox_LostFocus();
             
         }
         private void BtnIsEnabling()
         {
-            if((!string.IsNullOrEmpty(TBoxEmail.Text) && TBoxEmail.Text != "Email") && (!string.IsNullOrEmpty(TBoxUsername.Text) && (TBoxUsername.Text != "Username")) && (!string.IsNullOrEmpty(PBoxPassword.Password) && PBoxPassword.Password != "Password"))
+            if((!string.IsNullOrEmpty(TBoxEmail.Text) && TBoxEmail.Text != "Email") 
+                && (!string.IsNullOrEmpty(TBoxUsername.Text) && (TBoxUsername.Text != "Username")) 
+                && (!string.IsNullOrEmpty(PBoxPassword.Password) && PBoxPassword.Password != "Password"))
             {
                 BtnSignIn.IsEnabled = true;
                 return;
@@ -102,36 +85,26 @@ namespace WpfApp1
         private async void BtnSignIn_Click(object sender, RoutedEventArgs e)
         {
             BtnIsEnabling();
-            bool flagUsername = false;
-            bool flagEmail = false;
             try
             {
-                flagUsername = await (DataAccess.CheckValueExists("Username", TBoxUsername.Text));
-                flagEmail = await (DataAccess.CheckValueExists("Email", TBoxEmail.Text));
-
-                if (flagUsername && flagEmail)
+                if (await SignIn.NewAccountAdd(TBoxUsername, TBoxEmail, PBoxPassword))
                 {
-                    DataAccess.InputParams(TBoxUsername.Text, PBoxPassword.Password, TBoxEmail.Text);
                     MessageBox.Show("successfully!");
-                    Launcher launcher = new Launcher();
-                    launcher.Show();
+                    new Launcher().Show();
                     this.Close();
+                    return;
                 }
-                else
-                {
-                    MessageBox.Show("such a user already exists!");
-                }
+                MessageBox.Show("such a user already exists!");
             }catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }  
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            /*Login login = new Login();
-            login.Show();
-            this.Close();*/
+            new Login().Show();
+            this.Close();
         }
     }
 }

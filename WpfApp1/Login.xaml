@@ -72,7 +72,7 @@
         <Grid Grid.Row="1" Background="#FF48474A"/>
 
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Log in" FontFamily="Arial" TextAlignment="Center" FontWeight="Bold" FontSize="30" VerticalAlignment="Center" Height="50" Width="125" Foreground="#FFABA6A6"/>
-        <TextBox Grid.Row="1" x:Name="TBoxUsername" HorizontalAlignment="Center" GotFocus="" LostFocus="TBoxUsername_LostFocus" Margin="0,20,0,0" TextWrapping="Wrap" Text="Username or Email" VerticalAlignment="Top" Width="290" Height="42" BorderBrush="{x:Null}"
+        <TextBox Grid.Row="1" x:Name="TBoxUsername" HorizontalAlignment="Center" GotFocus="TBoxUsername_GotFocus" LostFocus="TBoxUsername_LostFocus" Margin="0,20,0,0" TextWrapping="Wrap" Text="Username or Email" VerticalAlignment="Top" Width="290" Height="42" BorderBrush="{x:Null}"
              Foreground="DarkGray"
              TextAlignment="Center"
              FontSize="20"

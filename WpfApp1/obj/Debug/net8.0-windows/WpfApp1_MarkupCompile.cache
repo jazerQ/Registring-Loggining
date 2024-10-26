@@ -1,5 +1,5 @@
 ﻿WpfApp1
-1.0.0.0
+
 
 winexe
 C#
@@ -12,9 +12,9 @@ TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\user\source\repos\WpfApp1\WpfApp1\App.xaml
 3267704269
 
-12-860375126
+10-2053890695
 202-1098344686
 Launcher.xaml;Login.xaml;MainWindow.xaml;
 
-True
+False
 

@@ -40,11 +40,34 @@ namespace WpfApp1
                 {
                     command.Parameters.AddWithValue("@value", valueToCheck);
                     var result = await command.ExecuteScalarAsync();
-                    exist = Convert.ToInt32(result) == 0;
+                    exist = Convert.ToInt32(result) > 0;
                     
                 }
             }
             return exist;
+        }
+        public async static Task<bool> IsValidPassword(string Username, string password)
+        {
+            bool flag = false;
+            using(var connection = new SqliteConnection(path))
+            {
+                await connection.OpenAsync();
+                string query = $"SELECT Password FROM User WHERE Username = @value";
+                using (var command = new SqliteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@value", Username);
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if(await reader.ReadAsync())
+                        {
+                            string correctPassword = reader.GetString(0);
+                            return correctPassword == password; 
+                        }
+                    }
+                    
+                }
+            }
+            return flag;
         }
 
     }
