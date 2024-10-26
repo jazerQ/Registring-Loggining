@@ -126,5 +126,12 @@ namespace WpfApp1
                 MessageBox.Show(ex.Message);
             }  
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            /*Login login = new Login();
+            login.Show();
+            this.Close();*/
+        }
     }
 }

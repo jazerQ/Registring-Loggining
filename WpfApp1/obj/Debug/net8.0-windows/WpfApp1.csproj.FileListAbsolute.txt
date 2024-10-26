@@ -47,3 +47,4 @@ C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\ref\WpfApp1.
 C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\WpfApp1.sourcelink.json
 C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\Launcher.g.cs
 C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\Launcher.baml
+C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\Login.g.cs

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\user\source\repos\WpfApp1\WpfApp1\App.xaml
-2-1243440368
+3267704269
 
-8-2080125165
+12873490285
 202-1098344686
-Launcher.xaml;MainWindow.xaml;
+Launcher.xaml;Login.xaml;MainWindow.xaml;
 
-True
+False
 
