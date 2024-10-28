@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="GameLauncher" WindowStyle="None"  WindowState="Normal" Height="400" Width="450" MouseDown="Window_MouseDown" ResizeMode="NoResize">
+        Title="GameLauncher" WindowStyle="None" WindowStartupLocation="CenterScreen"  WindowState="Normal" Height="400" Width="450" MouseDown="Window_MouseDown" ResizeMode="NoResize">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
