@@ -12,12 +12,15 @@ namespace WpfApp1
     {
         public async static Task<bool> NewAccountAdd(TextBox TBoxUsername, TextBox TBoxEmail, PasswordBox PBoxPassword)
         {   
+            // validation email + password
+            // 
+            
             bool flagUsername = await(DataAccess.CheckValueExists("Username", TBoxUsername.Text));
             bool flagEmail = await(DataAccess.CheckValueExists("Email", TBoxEmail.Text));
 
             if (!flagUsername && !flagEmail)
             {
-                DataAccess.InputParams(TBoxUsername.Text, PBoxPassword.Password, TBoxEmail.Text);
+                await DataAccess.InputParams(TBoxUsername.Text, PBoxPassword.Password, TBoxEmail.Text);
                 //MessageBox.Show("successfully!");
                 return true;
             }

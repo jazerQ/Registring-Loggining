@@ -62,6 +62,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -70,7 +71,40 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="#E1340D7B"/>
         <Grid Grid.Row="1" Background="#FF48474A"/>
+        <Button Margin="0,0,15,0" Grid.Row="0" Width="32" Height="32" HorizontalAlignment="Right" VerticalAlignment="Center" BorderThickness="0" Background="Transparent" Cursor="Hand" Click="Button_Click_1">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <Image Stretch="Fill" Source="C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\closeWindowRed.png">
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Setter Property="Opacity" Value="0.8"></Setter>
 
+                                <Style.Triggers>
+                                    <!--<DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=Btn}" Value="true">
+                                <Setter Property="Opacity" Value="1"></Setter>
+                            </DataTrigger>-->
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                Mode=FindAncestor,
+                                AncestorType={x:Type Button}},
+                                Path=IsPressed
+                                }" Value="true">
+                                        <Setter Property="Margin" Value="0,3,0,0"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                Mode=FindAncestor,
+                                AncestorType={x:Type Button}},
+                                Path=IsMouseOver
+                                }" Value="true">
+                                        <Setter Property="Opacity" Value="1"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </DataTemplate>
+            </Button.ContentTemplate>
+
+        </Button>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Log in" FontFamily="Arial" TextAlignment="Center" FontWeight="Bold" FontSize="30" VerticalAlignment="Center" Height="50" Width="125" Foreground="#FFABA6A6"/>
         <TextBox Grid.Row="1" x:Name="TBoxUsername" HorizontalAlignment="Center" GotFocus="TBoxUsername_GotFocus" LostFocus="TBoxUsername_LostFocus" Margin="0,20,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="290" Height="42" BorderBrush="{x:Null}"
              Foreground="DarkGray"

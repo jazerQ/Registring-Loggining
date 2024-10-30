@@ -9,8 +9,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="res\cs.jpg" />
+    <None Remove="res\darkSoul.jpg" />
+    <None Remove="res\dayz.jpg" />
+    <None Remove="res\dota.jpg" />
+    <None Remove="res\eldenRing.jpg" />
+    <None Remove="res\gta.jpg" />
+    <None Remove="res\icons\close.png" />
+    <None Remove="res\icons\closePanel.png" />
+    <None Remove="res\icons\closeWindow.png" />
+    <None Remove="res\icons\closeWindowRed.png" />
+    <None Remove="res\icons\cs.png" />
+    <None Remove="res\icons\Cyberpunk.png" />
+    <None Remove="res\icons\DarkSouls.png" />
+    <None Remove="res\icons\dayz.png" />
+    <None Remove="res\icons\dota.png" />
+    <None Remove="res\icons\eldenRing.png" />
+    <None Remove="res\icons\gta.png" />
+    <None Remove="res\icons\hearthstone.png" />
     <None Remove="res\icons\minecraft.png" />
+    <None Remove="res\icons\mortalKombat.png" />
+    <None Remove="res\icons\open.png" />
     <None Remove="res\icons\pubg.png" />
+    <None Remove="res\icons\streetFighter.png" />
+    <None Remove="res\Minecraft.jpg" />
+    <None Remove="res\pubg.jpg" />
+    <None Remove="res\user.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,8 +42,32 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="res\cs.jpg" />
+    <Resource Include="res\darkSoul.jpg" />
+    <Resource Include="res\dayz.jpg" />
+    <Resource Include="res\dota.jpg" />
+    <Resource Include="res\eldenRing.jpg" />
+    <Resource Include="res\gta.jpg" />
+    <Resource Include="res\icons\closeWindow.png" />
+    <Resource Include="res\icons\closeWindowRed.png" />
+    <Resource Include="res\Minecraft.jpg" />
+    <Resource Include="res\icons\close.png" />
+    <Resource Include="res\icons\Cyberpunk.png" />
+    <Resource Include="res\icons\DarkSouls.png" />
+    <Resource Include="res\icons\dayz.png" />
+    <Resource Include="res\icons\dota.png" />
+    <Resource Include="res\icons\eldenRing.png" />
+    <Resource Include="res\icons\gta.png" />
+    <Resource Include="res\icons\hearthstone.png" />
+    <Resource Include="res\icons\closePanel.png" />
     <Resource Include="res\icons\minecraft.png" />
+    <Resource Include="res\icons\cs.png" />
+    <Resource Include="res\icons\mortalKombat.png" />
+    <Resource Include="res\icons\open.png" />
     <Resource Include="res\icons\pubg.png" />
+    <Resource Include="res\icons\streetFighter.png" />
+    <Resource Include="res\pubg.jpg" />
+    <Resource Include="res\user.png" />
   </ItemGroup>
 
 </Project>

@@ -10,6 +10,7 @@
     <Window.Resources>
         <ControlTemplate x:Key="TopMenuButton" TargetType="Button">
             <Grid Name="Btn" Height="50" Margin="20,0,0,0">
+                
                 <Border>
                     <Grid>
                         <Label Content="{TemplateBinding Content}"
@@ -87,13 +88,85 @@
             <Grid x:Name="Btn" Height="50">
                 <Border>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="{DynamicResource ResourceKey=Img}"></Image>
+                        <Image Source="{DynamicResource ResourceKey=Img}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="30" Width="30" Stretch="Fill" Margin="20,0,0,0">
+                            
+                        </Image>
+                        <Label Content="{TemplateBinding Content}"
+                           Background="Transparent"
+                           FontSize="15"
+                           VerticalAlignment="Center">  
+                            <Label.Style>
+                                <Style TargetType="Label">
+                                    <Setter Property="Foreground" Value="#E3E2DF"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=Btn}" Value="true">
+                                            <Setter Property="Foreground" Value="White"></Setter>
+                                        </DataTrigger>
+                                        
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                            Mode=FindAncestor,
+                                            AncestorType={x:Type Button}},
+                                            Path=IsFocused
+                                            }" Value="true">
+                                            <Setter Property="Foreground" Value="White"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
                     </StackPanel>
+                </Border>
+                <Border x:Name="MouseOverBorder" Background="#ADADAD">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Opacity" Value="0"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=Btn}" Value="true">
+                                    <Setter Property="Opacity" Value="0.1"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+                <Border x:Name="IsSelectedBorder" Background="#ADADAD">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Opacity" Value="0"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                    Mode=FindAncestor,
+                                    AncestorType={x:Type Button}},
+                                    Path=IsFocused
+                                    }" Value="true">
+                                    <Setter Property="Opacity" Value="0.1"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+                <Border x:Name="IsSelectedBorder2" Background="Transparent">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Visibility" Value="Hidden"></Setter>
+                            <Setter Property="BorderThickness" Value="3,0,0,0"></Setter>
+                            <Setter Property="BorderBrush" Value="#E98074"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                    Mode=FindAncestor,
+                                    AncestorType={x:Type Button}},
+                                    Path=IsFocused
+                                    }" Value="true">
+                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
                 </Border>
             </Grid>
         </ControlTemplate>
     </Window.Resources>
     <Grid>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"></ColumnDefinition>
             <ColumnDefinition ></ColumnDefinition>
@@ -102,6 +175,16 @@
             <RowDefinition Height="100"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.Background>
+                <ImageBrush x:Name="GridBackGround" Stretch="Fill"></ImageBrush>
+            </Grid.Background>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center">
+            
+            <Image Source="C:\Users\user\source\repos\WpfApp1\WpfApp1\res\user.png" Width="40" Height="40" Margin="0,0,120,0"></Image>
+            <Label x:Name="UsernameInterface"  FontSize="18" Margin="50,0,0,0"></Label>
+        </Grid>
         <Grid x:Name="TopMenu" Grid.Row="0" Grid.ColumnSpan="2">
             <Border BorderThickness="2" BorderBrush="#44318D" Background="Transparent">
                 <StackPanel Orientation="Horizontal">
@@ -112,60 +195,93 @@
                 </StackPanel>
             </Border>
         </Grid>
-        <Grid x:Name="SlideMenu" Grid.Column="0" Grid.Row="1">
+        <Grid x:Name="SlideMenu" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left">
+            <Grid.Style>
+                <Style TargetType="Grid" >
+                    <Setter Property="Width" Value="225"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsChecked, ElementName=OpenClosedLeftMenuBtn}" Value="true">
+                            <Setter Property="Width" Value="56"></Setter>
+                            
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
             <Border BorderThickness="1,0,1,1" BorderBrush="#44318D"></Border>
             <Border BorderThickness="0" Background="Black" Opacity="0.4"></Border>
             <StackPanel Orientation="Vertical">
-                <Button Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="Minecraft">
+                <Button x:Name="BMinecraft" Click="BMinecraft_Click" Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="Minecraft">
                     
                     <Button.Resources>
                         <ImageSource x:Key="Img">C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\minecraft.png</ImageSource>
                     </Button.Resources>
                 </Button>
-                <Button Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="PUBG">
+                <Button x:Name="BPubg" Click="BPubg_Click" Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="PUBG">
 
                     <Button.Resources>
                         <ImageSource x:Key="Img">C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\pubg.png</ImageSource>
                     </Button.Resources>
                 </Button>
-                <Button Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="Minecraft">
+                <Button Click="DotaButton_Click" Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="Dota 2">
 
                     <Button.Resources>
-                        <ImageSource x:Key="Img">C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\minecraft.png</ImageSource>
+                        <ImageSource x:Key="Img">C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\dota.png</ImageSource>
                     </Button.Resources>
                 </Button>
-                <Button Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="Minecraft">
+                <Button x:Name="BGta" Click="BGta_Click" Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="Grand Theft Auto 5">
 
                     <Button.Resources>
-                        <ImageSource x:Key="Img">C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\minecraft.png</ImageSource>
+                        <ImageSource x:Key="Img">C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\gta.png</ImageSource>
                     </Button.Resources>
                 </Button>
-                <Button Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="Minecraft">
+                <Button x:Name="BDarkSouls" Click="BDarkSouls_Click" Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="Dark Souls">
 
                     <Button.Resources>
-                        <ImageSource x:Key="Img">C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\minecraft.png</ImageSource>
+                        <ImageSource x:Key="Img">C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\DarkSouls.png</ImageSource>
                     </Button.Resources>
                 </Button>
-                <Button Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="Minecraft">
+                <Button x:Name="BCs" Click="BCs_Click" Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="Counter Strike">
 
                     <Button.Resources>
-                        <ImageSource x:Key="Img">C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\minecraft.png</ImageSource>
+                        <ImageSource x:Key="Img">C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\cs.png</ImageSource>
                     </Button.Resources>
                 </Button>
-                <Button Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="Minecraft">
+                <Button x:Name="BEldenRing" Click="BEldenRing_Click" Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="Elden Ring">
 
                     <Button.Resources>
-                        <ImageSource x:Key="Img">C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\minecraft.png</ImageSource>
+                        <ImageSource x:Key="Img">C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\eldenRing.png</ImageSource>
                     </Button.Resources>
                 </Button>
-                <Button Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="Minecraft">
+                <Button x:Name="BDayz" Click="BDayz_Click" Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="DAYZ">
 
                     <Button.Resources>
-                        <ImageSource x:Key="Img">C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\minecraft.png</ImageSource>
+                        <ImageSource x:Key="Img">C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\dayz.png</ImageSource>
                     </Button.Resources>
                 </Button>
 
             </StackPanel>
+            <ToggleButton Focusable="False" x:Name="OpenClosedLeftMenuBtn" Height="30" Width="30" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20, 0, 0, 20" Background="White">
+                <ToggleButton.Template>
+                    <ControlTemplate>
+                        <Image>
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Source" Value="C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\closePanel.png"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                                Mode=FindAncestor,
+                                                AncestorType={x:Type ToggleButton}},
+                                                Path=IsChecked
+                                                }" Value="true">
+                                            <Setter Property="Source" Value="C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\open.png"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                    </ControlTemplate>
+                </ToggleButton.Template>
+            </ToggleButton>
         </Grid>
     </Grid>
 </Window>

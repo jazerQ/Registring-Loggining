@@ -11,9 +11,9 @@ namespace WpfApp1
     {
         public static readonly string path = @"Data Source=C:\Users\user\Desktop\Reg.db";
 
-        public async static void InputParams(string username, string password, string email)
+        public static Task InputParams(string username, string password, string email)
         {
-            await Task.Run(() =>
+            return Task.Run(() =>
             {
                 using (var connection = new SqliteConnection(path))
                 {
