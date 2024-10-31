@@ -10,7 +10,7 @@
     <Window.Resources>
         <ControlTemplate x:Key="TopMenuButton" TargetType="Button">
             <Grid Name="Btn" Height="50" Margin="20,0,0,0">
-                
+
                 <Border>
                     <Grid>
                         <Label Content="{TemplateBinding Content}"
@@ -80,7 +80,7 @@
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
-                    
+
                 </Border>
             </Grid>
         </ControlTemplate>
@@ -89,12 +89,12 @@
                 <Border>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{DynamicResource ResourceKey=Img}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="30" Width="30" Stretch="Fill" Margin="20,0,0,0">
-                            
+
                         </Image>
                         <Label Content="{TemplateBinding Content}"
                            Background="Transparent"
                            FontSize="15"
-                           VerticalAlignment="Center">  
+                           VerticalAlignment="Center">
                             <Label.Style>
                                 <Style TargetType="Label">
                                     <Setter Property="Foreground" Value="#E3E2DF"></Setter>
@@ -102,7 +102,7 @@
                                         <DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=Btn}" Value="true">
                                             <Setter Property="Foreground" Value="White"></Setter>
                                         </DataTrigger>
-                                        
+
                                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource
                                             Mode=FindAncestor,
                                             AncestorType={x:Type Button}},
@@ -164,9 +164,64 @@
                 </Border>
             </Grid>
         </ControlTemplate>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="cabinetButton" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="15" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#da3f88"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#da3f88"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#da3a98"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#da3a98"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"></ColumnDefinition>
             <ColumnDefinition ></ColumnDefinition>
@@ -175,16 +230,12 @@
             <RowDefinition Height="100"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+        <Grid x:Name="MainGrid" Grid.Row="1" Grid.ColumnSpan="2">
             <Grid.Background>
                 <ImageBrush x:Name="GridBackGround" Stretch="Fill"></ImageBrush>
             </Grid.Background>
         </Grid>
-        <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center">
-            
-            <Image Source="C:\Users\user\source\repos\WpfApp1\WpfApp1\res\user.png" Width="40" Height="40" Margin="0,0,120,0"></Image>
-            <Label x:Name="UsernameInterface"  FontSize="18" Margin="50,0,0,0"></Label>
-        </Grid>
+        
         <Grid x:Name="TopMenu" Grid.Row="0" Grid.ColumnSpan="2">
             <Border BorderThickness="2" BorderBrush="#44318D" Background="Transparent">
                 <StackPanel Orientation="Horizontal">
@@ -192,6 +243,12 @@
                     <Button Template="{ StaticResource ResourceKey = TopMenuButton }" Content="COMMUNICATION"></Button>
                     <Button Template="{ StaticResource ResourceKey = TopMenuButton }" Content="SHOP"></Button>
                     <Button Template="{ StaticResource ResourceKey = TopMenuButton }" Content="NEWS"></Button>
+                    <Button Style="{DynamicResource cabinetButton}" x:Name="CabinetBtn" Click="CabinetBtn_Click" Cursor="Hand" Width="300" Height="60" Background="#8265a8" Margin="290,0,0,0">
+                        <StackPanel Orientation="Horizontal" Height="50">
+                            <Image Source="\res\user.png" Width="40" Height="40" ></Image>
+                            <TextBlock x:Name="UsernameInterface" Text="Jaba" Foreground="#E3E2DF" TextWrapping="Wrap" Background="Transparent" Height="36" Width="250" TextAlignment="Left" Margin="10,0,0,0"  FontSize="24" />
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
             </Border>
         </Grid>
@@ -202,7 +259,7 @@
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Path=IsChecked, ElementName=OpenClosedLeftMenuBtn}" Value="true">
                             <Setter Property="Width" Value="56"></Setter>
-                            
+
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -211,7 +268,7 @@
             <Border BorderThickness="0" Background="Black" Opacity="0.4"></Border>
             <StackPanel Orientation="Vertical">
                 <Button x:Name="BMinecraft" Click="BMinecraft_Click" Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="Minecraft">
-                    
+
                     <Button.Resources>
                         <ImageSource x:Key="Img">C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\minecraft.png</ImageSource>
                     </Button.Resources>

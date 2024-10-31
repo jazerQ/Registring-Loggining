@@ -29,6 +29,28 @@ namespace WpfApp1
             }
         );
         }
+        public async static Task<string> GetEmail(string username)
+        {
+            
+            using (var connection = new SqliteConnection(path))
+            {
+                await connection.OpenAsync();
+                string query = $"SELECT Email FROM User WHERE Username = @value";
+                using (var command = new SqliteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@value", username);
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if(await reader.ReadAsync())
+                        {
+                            string email = reader.GetString(0);
+                            return email;
+                        }
+                    }
+                }
+            }
+            return "";
+        }
         public async static Task<bool> CheckValueExists(string column, string valueToCheck) 
         {
             bool exist = false;
@@ -46,6 +68,25 @@ namespace WpfApp1
             }
             return exist;
         }
+        public static Task DeleteUser(string username)
+        {
+            return Task.Run(() => 
+            {
+                using (var connection = new SqliteConnection(path))
+                {
+                    connection.OpenAsync();
+                    string query = "DELETE FROM User WHERE Username = @value";
+                    using (var command = new SqliteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@value", username);
+                        command.ExecuteNonQuery();
+
+                    }
+                }
+            }
+            );
+
+        } 
         public async static Task<bool> IsValidPassword(string Username, string password)
         {
             bool flag = false;

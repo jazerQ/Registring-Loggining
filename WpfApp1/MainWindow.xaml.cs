@@ -87,8 +87,8 @@ namespace WpfApp1
         private async void BtnSignIn_Click(object sender, RoutedEventArgs e)
         {
             BtnIsEnabling();
-            
-            
+
+            string pass;
                 
                 
             
@@ -105,11 +105,20 @@ namespace WpfApp1
                     throw new InvalidCredentialsException($"некорректный password  В пароле должна быть минимум одна цифра, одна буква(английская), большая буква и любой знак, который не цифра и не буква, максимальная длина пароля 16 символов.");
                 }
 
-
+                if (flagForToggleButton)
+                {
+                    pass = PBoxPassword.Password;
+                }
+                else
+                {
+                    pass = TBoxPassword.Text;
+                }
                 // добавление в базу данных
-                if (await SignIn.NewAccountAdd(TBoxUsername, TBoxEmail, PBoxPassword))
+                if (await SignIn.NewAccountAdd(TBoxUsername.Text, TBoxEmail.Text, pass))
                 {
                     MessageBox.Show("successfully!");
+                    CabinetUser.user = new UsersClass(TBoxUsername.Text, await DataAccess.GetEmail(TBoxUsername.Text));
+
                     new Launcher().Show();
                     this.Close();
                     return;

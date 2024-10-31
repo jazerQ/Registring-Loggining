@@ -10,17 +10,17 @@ namespace WpfApp1
 {
     static class SignIn
     {
-        public async static Task<bool> NewAccountAdd(TextBox TBoxUsername, TextBox TBoxEmail, PasswordBox PBoxPassword)
+        public async static Task<bool> NewAccountAdd(string username, string email, string password)
         {   
             // validation email + password
             // 
             
-            bool flagUsername = await(DataAccess.CheckValueExists("Username", TBoxUsername.Text));
-            bool flagEmail = await(DataAccess.CheckValueExists("Email", TBoxEmail.Text));
+            bool flagUsername = await(DataAccess.CheckValueExists("Username", username));
+            bool flagEmail = await(DataAccess.CheckValueExists("Email", email));
 
             if (!flagUsername && !flagEmail)
             {
-                await DataAccess.InputParams(TBoxUsername.Text, PBoxPassword.Password, TBoxEmail.Text);
+                await DataAccess.InputParams(username, password, email);
                 //MessageBox.Show("successfully!");
                 return true;
             }
@@ -33,12 +33,12 @@ namespace WpfApp1
     }
     static class LogIn 
     {
-        public async static Task<bool> HasAccount(TextBox textBox, PasswordBox passwordBox)
+        public async static Task<bool> HasAccount(string username, string password)
         {
-            bool flagUsername = await (DataAccess.CheckValueExists("Username",textBox.Text));
+            bool flagUsername = await (DataAccess.CheckValueExists("Username",username));
             if (flagUsername)
             {
-                return await DataAccess.IsValidPassword(textBox.Text, passwordBox.Password);
+                return await DataAccess.IsValidPassword(username, password);
             }
             return false;
         }
