@@ -22,6 +22,11 @@ namespace WpfApp1
         public GameList()
         {
             InitializeComponent();
+            Load();
+        }
+        private void Load()
+        {
+            GameLibrary gameLib = new GameLibrary(ListOfGames);
         }
     }
 }

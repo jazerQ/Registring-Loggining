@@ -13,6 +13,7 @@
     <None Remove="res\darkSoul.jpg" />
     <None Remove="res\dayz.jpg" />
     <None Remove="res\dota.jpg" />
+    <None Remove="res\dota_shop.jpeg" />
     <None Remove="res\eldenRing.jpg" />
     <None Remove="res\gta.jpg" />
     <None Remove="res\icons\back.png" />
@@ -48,6 +49,7 @@
     <Resource Include="res\darkSoul.jpg" />
     <Resource Include="res\dayz.jpg" />
     <Resource Include="res\dota.jpg" />
+    <Resource Include="res\dota_shop.jpeg" />
     <Resource Include="res\eldenRing.jpg" />
     <Resource Include="res\gta.jpg" />
     <Resource Include="res\icons\back.png" />
