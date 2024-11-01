@@ -6,7 +6,52 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="GameList" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel x:Name="ListOfGames">
+            <!-- Пример добавления нескольких элементов продукта -->
+            <Border Margin="10" Padding="10" Background="LightGray" Width="500" Height="500">
+                <StackPanel>
+                    <Image Source="res/minecraft_shop.png" Stretch="Fill"></Image>
+                    <TextBlock Text="Minecraft" FontSize="20"></TextBlock>
+                    <Button Content="Buy this game" Width="50" Height="50"></Button>
+                </StackPanel>
+            </Border>
+            <Border Margin="10" Padding="10" Background="LightGray">
+                <TextBlock Text="Product 2" FontSize="20"/>
+            </Border>
+            <Border Margin="10" Padding="10" Background="LightGray">
+                <TextBlock Text="Product 3" FontSize="20"/>
+            </Border>
+            <!-- Добавьте больше продуктов по мере необходимости -->
+            <Border Margin="10" Padding="10" Background="LightGray">
+                <TextBlock Text="Product 1" FontSize="20"/>
+            </Border>
+            <Border Margin="10" Padding="10" Background="LightGray">
+                <TextBlock Text="Product 2" FontSize="20"/>
+            </Border>
+            <Border Margin="10" Padding="10" Background="LightGray">
+                <TextBlock Text="Product 3" FontSize="20"/>
+            </Border>
+            <Border Margin="10" Padding="10" Background="LightGray">
+                <TextBlock Text="Product 1" FontSize="20"/>
+            </Border>
+            <Border Margin="10" Padding="10" Background="LightGray">
+                <TextBlock Text="Product 2" FontSize="20"/>
+            </Border>
+            <Border Margin="10" Padding="10" Background="LightGray">
+                <TextBlock Text="Product 3" FontSize="20"/>
+            </Border>
+            <Border Margin="10" Padding="10" Background="LightGray">
+                <TextBlock Text="Product 1" FontSize="20"/>
+            </Border>
+            <Border Margin="10" Padding="10" Background="LightGray">
+                <TextBlock Text="Product 2" FontSize="20"/>
+            </Border>
+            <Border Margin="10" Padding="10" Background="LightGray">
+                <TextBlock Text="Product 3" FontSize="20"/>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+
+
 </Window>

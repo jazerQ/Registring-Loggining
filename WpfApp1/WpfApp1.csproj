@@ -15,6 +15,7 @@
     <None Remove="res\dota.jpg" />
     <None Remove="res\eldenRing.jpg" />
     <None Remove="res\gta.jpg" />
+    <None Remove="res\icons\back.png" />
     <None Remove="res\icons\close.png" />
     <None Remove="res\icons\closePanel.png" />
     <None Remove="res\icons\closeWindow.png" />
@@ -33,6 +34,7 @@
     <None Remove="res\icons\pubg.png" />
     <None Remove="res\icons\streetFighter.png" />
     <None Remove="res\Minecraft.jpg" />
+    <None Remove="res\minecraft_shop.png" />
     <None Remove="res\pubg.jpg" />
     <None Remove="res\user.png" />
   </ItemGroup>
@@ -48,6 +50,7 @@
     <Resource Include="res\dota.jpg" />
     <Resource Include="res\eldenRing.jpg" />
     <Resource Include="res\gta.jpg" />
+    <Resource Include="res\icons\back.png" />
     <Resource Include="res\icons\closeWindow.png" />
     <Resource Include="res\icons\closeWindowRed.png" />
     <Resource Include="res\Minecraft.jpg" />
@@ -66,6 +69,7 @@
     <Resource Include="res\icons\open.png" />
     <Resource Include="res\icons\pubg.png" />
     <Resource Include="res\icons\streetFighter.png" />
+    <Resource Include="res\minecraft_shop.png" />
     <Resource Include="res\pubg.jpg" />
     <Resource Include="res\user.png" />
   </ItemGroup>

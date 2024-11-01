@@ -120,6 +120,10 @@ namespace WpfApp1
             
         }
 
-        
+        private void ShopButton_Click(object sender, RoutedEventArgs e)
+        {
+            new GameList().Show();
+           
+        }
     }
 }

@@ -49,3 +49,5 @@ C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\Launcher.g.c
 C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\Launcher.baml
 C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\Login.g.cs
 C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\Login.baml
+C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\GameList.g.cs
+C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\GameList.baml
