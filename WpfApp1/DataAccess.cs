@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -75,7 +76,9 @@ namespace WpfApp1
                 using (var connection = new SqliteConnection(path))
                 {
                     connection.OpenAsync();
-                    string query = "DELETE FROM User WHERE Username = @value";
+                    string query = "DELETE FROM Users_Games WHERE user_id = (SELECT ID FROM User WHERE Username = @value); DELETE FROM User WHERE Username = @value;";
+
+
                     using (var command = new SqliteCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@value", username);
@@ -110,17 +113,46 @@ namespace WpfApp1
             }
             return flag;
         }
-        public static async Task<Game[]> GetGame(int count)
+        public static async Task<List<GameInMainMenu>> GetUserGames(string username)
         {
-            Game[] games = new Game[count];
-            int ind = 0;
+            List<GameInMainMenu> games = new List<GameInMainMenu>();
+
+            using (var connection = new SqliteConnection(path)) 
+            {
+                await connection.OpenAsync();
+                string query = "SELECT game, path_icon, path_background FROM Games JOIN Users_Games ON Users_Games.game_id = Games.game_id JOIN User ON User.ID = Users_Games.user_id WHERE username = @value GROUP BY game";
+                using (var command = new SqliteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@value", username);
+                    using (SqliteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                string game = (string)reader.GetValue(0);
+                                string path_icon = "..\\..\\.." + ((string)reader.GetValue(1));
+                                string path_background = "..\\..\\.." + ((string)reader.GetValue(2));
+                                GameInMainMenu gameIn = new GameInMainMenu(game, 0, path_background, path_icon);
+                                games.Add(gameIn);
+                            }
+                        }
+                    }
+                }
+            }
+            return games;
+        }
+        public static async Task<List<Game>> GetGame()
+        {
+            List<Game> games = new List<Game>();
+            
             using (var connection = new SqliteConnection(path))
             {
                 await connection.OpenAsync();
-                string query = "SELECT game, cost, path FROM Games LIMIT @value";
+                string query = "SELECT game, cost, path FROM Games";
                 using (var command = new SqliteCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@value", count);
+                    
                     using (SqliteDataReader reader = command.ExecuteReader())
                     {
                         if (reader.HasRows)
@@ -129,10 +161,10 @@ namespace WpfApp1
                             {
                                 string game = (string) reader.GetValue(0);
                                 int cost = Convert.ToInt32(reader.GetValue(1));
-                                string pathOfGame = (string) reader.GetValue(2);
+                                string pathOfGame = "..\\..\\.."+ ((string) reader.GetValue(2));
                                 Game MyGame = new Game(game, cost, pathOfGame);
-                                games[ind] = MyGame;
-                                ind++;
+                                games.Add(MyGame);
+                                
                             }
                         }
                         
@@ -156,6 +188,24 @@ namespace WpfApp1
                 }
             }
         }
+        public async static Task<bool> IsGameAlreadyPurchased(string username, string game)
+        {
+            bool exist = false;
+            using (var connection = new SqliteConnection(path))
+            {
+                await connection.OpenAsync();
+                string query = "SELECT COUNT(*) FROM Users_Games JOIN User ON User.ID = Users_Games.user_id JOIN Games ON Games.game_id = Users_Games.game_id WHERE Username = @username AND game = @game";
+                using (var command = new SqliteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@username", username);
+                    command.Parameters.AddWithValue("@game", game);
+                    var result = await command.ExecuteScalarAsync();
+                    exist = Convert.ToInt32(result) > 0;
+                }
+            }
+            return exist;
+        } 
+       
 
     }
 }

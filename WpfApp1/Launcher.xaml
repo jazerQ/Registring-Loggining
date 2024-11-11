@@ -84,7 +84,7 @@
                 </Border>
             </Grid>
         </ControlTemplate>
-        <ControlTemplate x:Key="LeftMenuBtn" TargetType="Button">
+        <ControlTemplate x:Name="LeftMenuButton" x:Key="LeftMenuBtn" TargetType="Button">
             <Grid x:Name="Btn" Height="50">
                 <Border>
                     <StackPanel Orientation="Horizontal">
@@ -240,7 +240,7 @@
             <Border BorderThickness="2" BorderBrush="#44318D" Background="Transparent">
                 <StackPanel Orientation="Horizontal">
                     <Button Template="{ StaticResource ResourceKey = TopMenuButton }" Content="PLAY"></Button>
-                    <Button Template="{ StaticResource ResourceKey = TopMenuButton }" Content="COMMUNICATION"></Button>
+                    <Button Template="{ StaticResource ResourceKey = TopMenuButton }" Content="COMMUNICATION" Click="Button_Click"></Button>
                     <Button x:Name="ShopButton" Click="ShopButton_Click"  Template="{ StaticResource ResourceKey = TopMenuButton }" Content="SHOP"></Button>
                     <Button Template="{ StaticResource ResourceKey = TopMenuButton }" Content="NEWS"></Button>
                     <Button Style="{DynamicResource cabinetButton}" x:Name="CabinetBtn" Click="CabinetBtn_Click" Cursor="Hand" Width="300" Height="60" Background="#8265a8" Margin="290,0,0,0">
@@ -266,8 +266,8 @@
             </Grid.Style>
             <Border BorderThickness="1,0,1,1" BorderBrush="#44318D"></Border>
             <Border BorderThickness="0" Background="Black" Opacity="0.4"></Border>
-            <StackPanel Orientation="Vertical">
-                <Button x:Name="BMinecraft" Click="BMinecraft_Click" Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="Minecraft">
+            <StackPanel x:Name="LeftMenuGame" Orientation="Vertical">
+                <!--<Button x:Name="BMinecraft" Click="BMinecraft_Click" Template="{StaticResource ResourceKey=LeftMenuBtn}" Content="Minecraft">
 
                     <Button.Resources>
                         <ImageSource x:Key="Img">C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\minecraft.png</ImageSource>
@@ -314,7 +314,7 @@
                     <Button.Resources>
                         <ImageSource x:Key="Img">C:\Users\user\source\repos\WpfApp1\WpfApp1\res\icons\dayz.png</ImageSource>
                     </Button.Resources>
-                </Button>
+                </Button>-->
 
             </StackPanel>
             <ToggleButton Focusable="False" x:Name="OpenClosedLeftMenuBtn" Height="30" Width="30" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20, 0, 0, 20" Background="White">

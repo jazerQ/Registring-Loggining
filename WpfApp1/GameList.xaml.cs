@@ -28,5 +28,11 @@ namespace WpfApp1
         {
             GameLibrary gameLib = new GameLibrary(ListOfGames);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new Launcher().Show();
+            this.Close();
+        }
     }
 }

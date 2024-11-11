@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace WpfApp1
 {
@@ -21,28 +22,42 @@ namespace WpfApp1
             this.path = path;
         }
     }
-    class GameLibrary
+    class GameInMainMenu : Game
     {
-        private Game[] games;
-        private StackPanel Panel_with_games;
+        public string path_icon;
+        public GameInMainMenu(string game, int cost, string path, string path_icon) : base(game, cost, path)
+        {
+            this.path_icon = path_icon;
+        }
+    }
+    abstract class GameInterface 
+    {
+        protected List<Game> games { get; set; }
+        protected StackPanel Panel_With_Games { get; set; }
+        protected abstract void SetParams();
+    }
+    class GameLibrary : GameInterface
+    {
         public GameLibrary(StackPanel Panel_with_games)
         {
-            this.Panel_with_games = Panel_with_games;
+            this.Panel_With_Games = Panel_with_games;
             
-            SetParams(2);
+            SetParams();
         }
 
-        private async void SetParams(int cnt)
+        protected async override void SetParams()
         {
-            games = await DataAccess.GetGame(cnt);
-            for (int i = 0; i < games.Length; i++)
+            games = await DataAccess.GetGame();
+            for (int i = 0; i < games.Count; i++)
             {
                 int index = i;
-                Button BuyButton = new Button { 
-                    Content = $"Buy this for {games[i].cost} rubles", 
+                bool isGameAlreadyPurchased = await DataAccess.IsGameAlreadyPurchased(CabinetUser.user.username, games[index].game);
+                Button BuyButton = new Button {
+                    Content = $"Buy this for {games[i].cost} rubles",
                     Width = 150,
                     Height = 50,
-                    HorizontalAlignment = HorizontalAlignment.Center 
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    IsEnabled = !isGameAlreadyPurchased
                 };
                 BuyButton.Click += async(sender, e) =>
                 {
@@ -56,7 +71,7 @@ namespace WpfApp1
                     Margin = new System.Windows.Thickness(10),
                     Padding = new System.Windows.Thickness(10),
                     CornerRadius = new CornerRadius(10),
-                    Background = Brushes.LightGray,
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2A1B3D")),
                     Width = 750,
                     Height = 500,
                 };
@@ -70,7 +85,54 @@ namespace WpfApp1
                 stackPanel.Children.Add(new TextBlock { Text = games[i].game, FontWeight = FontWeights.Bold, FontSize = 20, HorizontalAlignment = HorizontalAlignment.Center});
                 stackPanel.Children.Add(BuyButton);
                 border.Child = stackPanel;
-                Panel_with_games.Children.Add(border);
+                Panel_With_Games.Children.Add(border);
+            }
+        }
+    }
+    class GameListInLeftMenu
+    {
+        protected List<GameInMainMenu> games;
+        protected StackPanel Panel_With_Games;
+        protected ImageBrush imageBrush;
+        protected Grid MainGrid;
+        protected PersonalCabinet cabinet;
+        protected ControlTemplate leftMenuBtn;
+        public GameListInLeftMenu(ref StackPanel Panel_With_Games, ref ImageBrush imageBrush,  Grid MainGrid,  ref PersonalCabinet personalCabinet, ControlTemplate controlTemplate)
+        {
+            this.leftMenuBtn = controlTemplate;
+            this.cabinet = personalCabinet;
+            this.MainGrid = MainGrid;
+            this.imageBrush = imageBrush;
+            this.Panel_With_Games = Panel_With_Games;
+            SetParams();
+        }
+        
+        protected async void SetParams() 
+        {
+            games = await DataAccess.GetUserGames(CabinetUser.user.username);
+            for(int i = 0; i < games.Count; i++)
+            {
+                int index = i;
+                Button button = new Button
+                {
+                    Template = leftMenuBtn,
+                    Content = games[i].game,
+                    
+                };
+                ImageSource imageSource = new BitmapImage(new Uri(games[i].path_icon, UriKind.Relative));
+
+                button.Resources.Add("Img", imageSource);
+                button.Click += (sender, e) =>
+                {
+                    MainGrid.Children.Clear();
+                    imageBrush.ImageSource = ImageConverter.ConvertStringToImageSource(games[index].path);
+                    if (cabinet != null && MainGrid.Children.Count != 0)
+                    {
+
+                        cabinet.ClosePage();
+                    }
+                };
+                Panel_With_Games.Children.Add(button);
             }
         }
     }

@@ -25,88 +25,11 @@ namespace WpfApp1
             InitializeComponent();
             Load_Catalog();
         }
-
-        private void BMinecraft_Click(object sender, RoutedEventArgs e)
-        {
-            GridBackGround.ImageSource = ImageConverter.ConvertStringToImageSource("C:\\Users\\user\\source\\repos\\WpfApp1\\WpfApp1\\res\\Minecraft.jpg");
-            if (personalCabinet != null && MainGrid.Children.Count != 0)
-            {
-               personalCabinet.ClosePage();
-            }
-        }
-
-        private void DotaButton_Click(object sender, RoutedEventArgs e)
-        {
-            GridBackGround.ImageSource = ImageConverter.ConvertStringToImageSource("C:\\Users\\user\\source\\repos\\WpfApp1\\WpfApp1\\res\\dota.jpg");
-            if (personalCabinet != null && MainGrid.Children.Count != 0)
-            {
-                
-                personalCabinet.ClosePage();
-            }
-        }
-
-        private void BPubg_Click(object sender, RoutedEventArgs e)
-        {
-            GridBackGround.ImageSource = ImageConverter.ConvertStringToImageSource("C:\\Users\\user\\source\\repos\\WpfApp1\\WpfApp1\\res\\pubg.jpg");
-            if (personalCabinet != null && MainGrid.Children.Count != 0)
-            {
-                
-                personalCabinet.ClosePage();
-            }
-        }
-
-        private void BGta_Click(object sender, RoutedEventArgs e)
-        {
-            GridBackGround.ImageSource = ImageConverter.ConvertStringToImageSource("C:\\Users\\user\\source\\repos\\WpfApp1\\WpfApp1\\res\\gta.jpg");
-            if (personalCabinet != null && MainGrid.Children.Count != 0)
-            {
-                
-                personalCabinet.ClosePage();
-            }
-        }
-
-        private void BDarkSouls_Click(object sender, RoutedEventArgs e)
-        {
-            GridBackGround.ImageSource = ImageConverter.ConvertStringToImageSource("C:\\Users\\user\\source\\repos\\WpfApp1\\WpfApp1\\res\\darkSoul.jpg");
-            if (personalCabinet != null && MainGrid.Children.Count != 0)
-            {
-                
-                personalCabinet.ClosePage();
-            }
-        }
-
-        private void BCs_Click(object sender, RoutedEventArgs e)
-        {
-            GridBackGround.ImageSource = ImageConverter.ConvertStringToImageSource("C:\\Users\\user\\source\\repos\\WpfApp1\\WpfApp1\\res\\cs.jpg");
-            if (personalCabinet != null && MainGrid.Children.Count != 0)
-            {
-                
-                personalCabinet.ClosePage();
-            }
-        }
-
-        private void BEldenRing_Click(object sender, RoutedEventArgs e)
-        {
-            GridBackGround.ImageSource = ImageConverter.ConvertStringToImageSource("C:\\Users\\user\\source\\repos\\WpfApp1\\WpfApp1\\res\\eldenRing.jpg");
-            if (personalCabinet != null && MainGrid.Children.Count != 0)
-            {
-                
-                personalCabinet.ClosePage();
-            }
-        }
-
-        private void BDayz_Click(object sender, RoutedEventArgs e)
-        {
-            GridBackGround.ImageSource = ImageConverter.ConvertStringToImageSource("C:\\Users\\user\\source\\repos\\WpfApp1\\WpfApp1\\res\\dayz.jpg");
-            if (personalCabinet != null && MainGrid.Children.Count != 0)
-            {
-                
-                personalCabinet.ClosePage();
-            }
-        }
         private void Load_Catalog()
         {
             UsernameInterface.Text = CabinetUser.user.username;
+            ControlTemplate leftMenuTemplate = (ControlTemplate)FindResource("LeftMenuBtn");
+            GameListInLeftMenu gameListInLeftMenu = new GameListInLeftMenu(ref LeftMenuGame, ref GridBackGround, MainGrid, ref personalCabinet, leftMenuTemplate);
         }
 
         private void CabinetBtn_Click(object sender, RoutedEventArgs e)
@@ -116,6 +39,11 @@ namespace WpfApp1
             {
                 personalCabinet = new PersonalCabinet(CabinetUser.user.username, CabinetUser.user.email, this, MainGrid, CabinetBtn);
             }
+            if (personalCabinet.isOpen)
+            {
+                personalCabinet.ClosePage();
+                return;
+            }
             personalCabinet.OpenPage();
             
         }
@@ -123,7 +51,14 @@ namespace WpfApp1
         private void ShopButton_Click(object sender, RoutedEventArgs e)
         {
             new GameList().Show();
+            this.Close();
            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new Communication().Show();
+            this.Close();
         }
     }
 }

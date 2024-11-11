@@ -51,3 +51,5 @@ C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\Login.g.cs
 C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\Login.baml
 C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\GameList.g.cs
 C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\GameList.baml
+C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\Communication.g.cs
+C:\Users\user\source\repos\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\Communication.baml

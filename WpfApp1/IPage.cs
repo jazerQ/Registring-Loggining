@@ -24,6 +24,7 @@ namespace WpfApp1
         Window window;
         Grid grid;
         Button CabinetButton;
+        public bool isOpen = false;
         public PersonalCabinet(string username, string email, Window window, Grid grid, Button CabinetButton)
         {
             this.CabinetButton = CabinetButton;
@@ -82,6 +83,7 @@ namespace WpfApp1
         }
         public void OpenPage()
         {
+            isOpen = true;
             grid.Children.Add(userTextBlock);
             grid.Children.Add(emailTextBlock);
             grid.Children.Add(exitButton);
@@ -90,12 +92,13 @@ namespace WpfApp1
         }
         public void ClosePage()
         {
+            isOpen = false;
             grid.Children.Remove(userTextBlock);
             grid.Children.Remove(emailTextBlock);
             grid.Children.Remove(exitButton);
             grid.Children.Remove(deleteButton);
             CabinetButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8265a8"));
-
+            
         }
 
     }
